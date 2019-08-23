@@ -22,8 +22,10 @@ build/Dockerfile -> Docker configuration file
 ## Setup
 
 Postgress
+1. Create Docker Network
+    ## docker network create mynet1 
 1. setup up standalone postrgress with docker
-    ## docker run -d --name my_postgres -e POSTGRES_PASSWORD=pass123$ -v my_dbdata:/var/lib/postgresql/data -p 54320:5432 postgres:11
+    ## docker run -d --net mynet1 --name my_postgres -v my_dbdata:/var/lib/postgresql/data -e POSTGRES_PASSWORD=pass123$ postgres:11
 2. get into the above container
     ## docker exec -it  my_postgres /bin/bash
 3. get into psql and create database 'creditdb
@@ -33,10 +35,10 @@ Postgress
 
 ## Docker Build
 1. From app directory after cloning
-    ## docker build -t fraud_anlytcs -f build/Dockerfile .
+   ## docker build -t fraud_anlytcs -f build/Dockerfile .
 
 ## Docker Run
-   ## docker run  -e FRAUD='fraud.zip' -e TRANS1='transaction-001.zip' -e TRANS2='transaction-002.zip'  -e POSTUSER='postgres' -e POSTPWD='pass123$' -p 80:80 -v  $(pwd):/tmp --net mynet1 fraud_anlytcs
+   ## docker run  -e FRAUD='fraud.zip' -e TRANS1='transaction-001.zip' -e TRANS2='transaction-002.zip'  -e POSTUSER='postgres' -e  POSTPWD='pass123$' -p 80:80 -v  $(pwd):/tmp --net mynet1 fraud_anlytcs
 
 ## Logs
    1. Logs can be found at /src/logs
